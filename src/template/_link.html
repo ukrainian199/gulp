@@ -1,0 +1,45 @@
+<link rel="stylesheet" href="css/main.css">
+<script src="js/main.js"></script>
+
+<script>
+  var firstLatItem = $('.address-items .address-item:first-child').data('lat');
+  var firstLngItem = $('.address-items .address-item:first-child').data('lng');
+  var map = L.map('map', {
+    center: [firstLatItem, firstLngItem],
+    zoom: 17,
+    zoomControl: false,
+    attributionControl: false
+  });
+
+  L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+    attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+  }).addTo(map);
+
+  var LeafIcon = L.Icon.extend({
+    options: {
+      // shadowUrl: './img/map-marker-solid.svg',
+      iconSize: [38, 95],
+      shadowSize: [50, 64],
+      iconAnchor: [22, 94],
+      shadowAnchor: [4, 62],
+      popupAnchor: [-3, -76]
+    }
+  });
+
+  var greenIcon = new LeafIcon({
+    iconUrl: '../img/marker.svg'
+  });
+  $('.address-item').each(function () {
+    var latItem = $(this).data('lat');
+    var lngItem = $(this).data('lng');
+    L.marker([latItem, lngItem], {
+      icon: greenIcon
+    }).bindPopup("I am a green leaf.").addTo(map);
+  });
+
+  $(document).on('click', '.address-item', function () {
+    var latItemCenter = $(this).data('lat');
+    var lngItemCenter = $(this).data('lng');
+    map.panTo(new L.LatLng(latItemCenter, lngItemCenter), {animate: true, duration: 1.0});
+  });
+</script>

@@ -1,0 +1,10 @@
+/.idea/
+/.vscode/
+/node_modules/
+/bower_components/
+/dist/
+/.git
+/**/*.ai
+/template/
+/**/Thumbs.db
+/**/*.DS_Store
